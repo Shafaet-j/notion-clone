@@ -1,3 +1,5 @@
+import { Button } from "@/components/ui/button";
+import { ArrowRight } from "lucide-react";
 import React from "react";
 
 const Heading = () => {
@@ -10,6 +12,10 @@ const Heading = () => {
       <h3 className=" text-base sm:text-xl md:text-2xl font-medium">
         Notion is connected workspace where <br /> better, faster work happen
       </h3>
+      <Button>
+        Enter Notion
+        <ArrowRight />
+      </Button>
     </div>
   );
 };
