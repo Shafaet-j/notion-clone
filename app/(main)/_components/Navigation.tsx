@@ -5,7 +5,10 @@ const Navigation = () => {
   return (
     <>
       <aside className=" h-full bg-secondary overflow-y-auto relative flex w-60 flex-col z-[99999] group/slide">
-        <div>
+        <div
+          role="button"
+          className=" h-6 w-6 text-muted-foreground rounded hover:bg-neutral-400 dark:hover:bg-neutral-600 absolute top-3 right-2 opacity-0 group-hover/slide:opacity-100 transition"
+        >
           <ChevronsLeft />
         </div>
         <div>
