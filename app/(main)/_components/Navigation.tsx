@@ -43,6 +43,32 @@ const Navigation = () => {
     document.removeEventListener("mouseup", handleMouseUp);
   };
 
+  const resetWidth = () => {
+    if (sidebarRef.current && navbarRef.current) {
+      setIsCollapsed(false);
+      setIsResetting(false);
+      sidebarRef.current.style.width = isMobile ? "100%" : "240px";
+      navbarRef.current.style.setProperty(
+        "width",
+        isMobile ? "0" : "calc(100%-240px)"
+      );
+      navbarRef.current.style.setProperty("left", isMobile ? "100%" : "240px");
+      setTimeout(() => setIsResetting(false), 300);
+    }
+  };
+
+  const collapse = () => {
+    if (sidebarRef.current && navbarRef.current) {
+      setIsCollapsed(true);
+      setIsResetting(true);
+
+      sidebarRef.current.style.width = "0";
+      navbarRef.current.style.setProperty("width", "100%");
+      navbarRef.current.style.setProperty("left", "0");
+      setTimeout(() => setIsResetting(false), 300);
+    }
+  };
+
   return (
     <>
       <aside
@@ -53,6 +79,7 @@ const Navigation = () => {
       >
         <div
           role="button"
+          onClick={collapse}
           className={`h-6 w-6 text-muted-foreground rounded hover:bg-neutral-400 dark:hover:bg-neutral-600 absolute top-3 right-2 opacity-0 group-hover/slide:opacity-100 transition ${
             isMobile && "opacity-100"
           }`}
@@ -67,7 +94,7 @@ const Navigation = () => {
         </div>
         <div
           onMouseDown={hangleMouseDown}
-          onClick={() => {}}
+          onClick={resetWidth}
           className=" opacity-0 group-hover/slide:opacity-100 transition cursor-ew-resize absolute h-full w-1 bg-primary/5 right-0 top-0 "
         ></div>
       </aside>
