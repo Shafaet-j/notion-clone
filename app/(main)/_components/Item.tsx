@@ -1,11 +1,26 @@
 "use client";
 
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { Skeleton } from "@/components/ui/skeleton";
 import { api } from "@/convex/_generated/api";
 import { Id } from "@/convex/_generated/dataModel";
 import { cn } from "@/lib/utils";
+import { useUser } from "@clerk/clerk-react";
 import { useMutation } from "convex/react";
-import { ChevronDown, ChevronRight, LucideIcon, Plus } from "lucide-react";
+import {
+  ChevronDown,
+  ChevronRight,
+  LucideIcon,
+  MoreHorizontal,
+  Plus,
+  Trash,
+} from "lucide-react";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 
@@ -34,8 +49,23 @@ const Item = ({
   level = 0,
   onExpand,
 }: ItemProps) => {
+  const { user } = useUser();
   const create = useMutation(api.documents.create);
   const router = useRouter();
+  const archive = useMutation(api.documents.archive);
+
+  const onArchive = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    event.stopPropagation();
+    if (!id) return;
+    const promise = archive({ id }).then(() => router.push("/documents"));
+
+    toast.promise(promise, {
+      loading: "Note is deleting...",
+      success: "Note is Deleted!",
+      error: "Failed to archive note.",
+    });
+  };
+
   const handleExpand = (
     event: React.MouseEvent<HTMLDivElement, MouseEvent>
   ) => {
@@ -97,7 +127,7 @@ const Item = ({
       )}
       {!!id && (
         <div className="ml-auto flex items-center gap-x-2">
-          {/* <DropdownMenu>
+          <DropdownMenu>
             <DropdownMenuTrigger onClick={(e) => e.stopPropagation()} asChild>
               <div
                 role="button"
@@ -121,7 +151,7 @@ const Item = ({
                 Last edited by: {user?.fullName}
               </div>
             </DropdownMenuContent>
-          </DropdownMenu> */}
+          </DropdownMenu>
           <div
             role="button"
             onClick={onCreate}
