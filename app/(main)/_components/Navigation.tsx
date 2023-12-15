@@ -20,6 +20,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import { TrashBox } from "./trashbox";
 
 const Navigation = () => {
   const pathname = usePathname();
@@ -144,8 +145,7 @@ const Navigation = () => {
               className="p-0 w-72"
               side={isMobile ? "bottom" : "right"}
             >
-              {/* <TrashBox /> */}
-              <p>Trash</p>
+              <TrashBox />
             </PopoverContent>
           </Popover>
         </div>
