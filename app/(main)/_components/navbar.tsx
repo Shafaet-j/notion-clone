@@ -9,6 +9,7 @@ import { Id } from "@/convex/_generated/dataModel";
 
 import { Title } from "./title";
 import { Banner } from "./banner";
+import { Menu } from "./menu";
 
 interface NavbarProps {
   isCollapsed: boolean;
@@ -27,7 +28,7 @@ export const Navbar = ({ isCollapsed, onResetWidth }: NavbarProps) => {
       <nav className="bg-background dark:bg-[#1F1F1F] px-3 py-2 w-full flex items-center justify-between">
         <Title.Skeleton />
         <div className="flex items-center gap-x-2">
-          {/* <Menu.Skeleton /> */}
+          <Menu.Skeleton />
         </div>
       </nav>
     );
