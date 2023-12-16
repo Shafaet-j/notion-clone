@@ -6,7 +6,7 @@ import {
   Settings,
   Trash,
 } from "lucide-react";
-import { usePathname } from "next/navigation";
+import { useParams, usePathname } from "next/navigation";
 import React, { ElementRef, useEffect, useRef, useState } from "react";
 import { useMediaQuery } from "usehooks-ts";
 import UserItem from "./UserItem";
@@ -22,9 +22,13 @@ import {
 } from "@/components/ui/popover";
 import { TrashBox } from "./trashbox";
 import { useSearch } from "@/hooks/use-seatch";
+import { useSettings } from "@/hooks/use-settings";
+import { Navbar } from "./navbar";
 
 const Navigation = () => {
+  const params = useParams();
   const search = useSearch();
+  const settings = useSettings();
   const pathname = usePathname();
   const isMobile = useMediaQuery("(max-width:768px)");
 
@@ -133,7 +137,7 @@ const Navigation = () => {
         <div>
           <UserItem />
           <Item label="Search" isSearch icon={Search} onClick={search.onOpen} />
-          <Item label="Settings" icon={Settings} onClick={() => {}} />
+          <Item label="Settings" icon={Settings} onClick={settings.onOpen} />
           <Item onClick={handleCreate} label="New page" icon={PlusCircle} />
         </div>
         <div className=" mt-4">
@@ -163,11 +167,19 @@ const Navigation = () => {
           isResetting && "transition-all ease-in-out duration-300"
         } ${isMobile && "left-0 w-full"} `}
       >
-        <nav className=" bg-transparent px-3 py-2 w-full">
-          {isCollapsed && (
-            <MenuIcon onClick={resetWidth} role="button" className=" h-6 w-6" />
-          )}
-        </nav>
+        {!!params.documentId ? (
+          <Navbar isCollapsed={isCollapsed} onResetWidth={resetWidth} />
+        ) : (
+          <nav className=" bg-transparent px-3 py-2 w-full">
+            {isCollapsed && (
+              <MenuIcon
+                onClick={resetWidth}
+                role="button"
+                className=" h-6 w-6"
+              />
+            )}
+          </nav>
+        )}
       </div>
     </>
   );
