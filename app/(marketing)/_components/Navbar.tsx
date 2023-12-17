@@ -14,7 +14,7 @@ const Navbar = () => {
   return (
     <div
       className={`${
-        scrolled && " shadow-sm border-b"
+        scrolled && " shadow-sm border-b bg-white"
       } top-0 left-0 fixed  w-full z-50 p-6 flex items-center dark:bg-[#1f1f1f]`}
     >
       <h2 className=" font-bold text-xl hidden md:block">Notion</h2>
