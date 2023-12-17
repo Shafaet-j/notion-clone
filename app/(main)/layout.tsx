@@ -4,11 +4,16 @@ import { useConvexAuth } from "convex/react";
 import { redirect } from "next/navigation";
 import Navigation from "./_components/Navigation";
 import { SearchCommand } from "@/components/search.command";
+import { Spinner } from "@/components/spinner";
 
 const MainLayout = ({ children }: { children: React.ReactNode }) => {
   const { isAuthenticated, isLoading } = useConvexAuth();
   if (isLoading) {
-    return <div className=" flex items-center justify-center">loading..</div>;
+    return (
+      <div className=" flex items-center justify-center">
+        <Spinner />
+      </div>
+    );
   }
   if (!isAuthenticated) {
     return redirect("/");
